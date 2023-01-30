@@ -8,8 +8,8 @@ This program implements a list data structure that links together nodes of integ
 
 |   #   | File     | Description                      |
 | :---: | -------- | -------------------------------- |
-|   1   | main.cpp | Main driver of my list program . |
-|   2   | banner.txt | Project Banner                 |
+|   1   | [main.cpp](https://github.com/theblade557/2143-OOP-Franklin/blob/main/Assignments/A03/main.cpp) | Main driver of my list program . |
+|   2   | [banner.txt](https://github.com/theblade557/2143-OOP-Franklin/blob/main/Assignments/A03/banner.txt) | Project Banner                 |
 
 
 ### Instructions
