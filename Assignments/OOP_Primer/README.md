@@ -8,7 +8,7 @@ An OOP primer that provides definition and example of essential concepts.
 
 |   #   | File     | Description                      |
 | :---: | -------- | -------------------------------- |
-|   1   | [banner.txt]() | Banner of the Assignment. |
+|   1   | [banner.txt](https://github.com/theblade557/2143-OOP-Franklin/blob/main/Assignments/OOP_Primer/banner.txt) | Banner of the Assignment. |
 
 
 ### Instructions
