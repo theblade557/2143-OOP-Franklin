@@ -2,7 +2,9 @@
 
 |   #   | Folder Link | Assignment Description |
 | :---: | ----------- | ---------------------- |
-|   01  |     [A03](https://github.com/theblade557/2143-OOP-Franklin/tree/main/Assignments/A03)     |Assignment to ensure proper commenting and README creation.|
-|   02  |     [OOP_Primer](https://github.com/theblade557/2143-OOP-Franklin/tree/main/Assignments/OOP_Primer) | An OOP primer that provides definition and example of essential concepts |
+|   01  |     [A03](https://github.com/theblade557/2143-OOP-Franklin/tree/main/Assignments/A03)     | Basic Project Orginization |
+|   02  |     [OOP_Primer](https://github.com/theblade557/2143-OOP-Franklin/tree/main/Assignments/OOP_Primer) | Basic OOP terminology |
+|   03  |     [Program 1](https://github.com/theblade557/2143-OOP-Franklin/tree/main/Assignments/P01) | Vector Class |
+
 
 
