@@ -13,7 +13,7 @@ An OOP primer that provides definition and example of essential concepts.
 
 ### Instructions
 
-- This program does not require any non standard libraries
+- 
 
 ### Example Command
 
