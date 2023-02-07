@@ -55,8 +55,8 @@ Vector::Vector(const Vector &other) {
 
     while (temp != nullptr)
     {
-    push(temp->data);
-    temp = temp->next;
+        push(temp->data);
+        temp = temp->next;
     }
 }
 
@@ -205,6 +205,18 @@ int Vector::popRear() {
 
 int Vector::popAt(int loc) {
     
+}
+
+int Vector::find(int val) {
+    Node *traverse = new Node();
+    int loc = 0;
+    while(traverse) {
+        if(traverse->data == val) {
+            return loc;
+        }
+        traverse = traverse->next;
+        loc++;
+    }
 }
 
 int main() {
