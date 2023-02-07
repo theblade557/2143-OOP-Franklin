@@ -42,7 +42,6 @@ class Vector {
         int popRear();                  // removes single value from rear of list
         int popAt(int);                 // removes single value from an indexed location if index between 0 and size of list -1
         int find(int);                  // find location of item (index) if it exists
-        int popAt(int);                 // then use index to remove them
 };
 Vector::Vector() {
      // makes the Vector empty
@@ -169,3 +168,15 @@ void Vector::inOrderPush(int value) {
         }
     }
 }
+
+int Vector::popFront() {
+    Node *temp = new Node();
+    int val;
+
+    temp = Head;
+    Head = Head->next;
+    val = temp->data;
+    delete temp;
+    return val;    
+}
+
