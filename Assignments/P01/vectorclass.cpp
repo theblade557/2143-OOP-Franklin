@@ -13,8 +13,10 @@
  *  Usage:
  *        
  *
- *  Files:            
+ *  Files:           
+ *        input.dat 
  *        main.cpp
+ *        test.out
  * 
  *****************************************************************************/
 
@@ -66,11 +68,13 @@ class Vector {
         int popAt(int);                 // removes single value from an indexed location if index between 0 and size of list -1
         int find(int);                  // find location of item (index) if it exists
 };
+
+// makes the Vector empty
 Vector::Vector() {
-     // makes the Vector empty
      Head = Tail = nullptr;
 }
 
+// creates a list with the values of another list
 Vector::Vector(const Vector &other) {
     Head = Tail = nullptr;
 
@@ -83,6 +87,7 @@ Vector::Vector(const Vector &other) {
     }
 }
 
+// creates a list with a value and a size
 Vector::Vector(int *A, int size) {
         int data;
         Head = Tail = nullptr;
@@ -92,6 +97,7 @@ Vector::Vector(int *A, int size) {
         }
 }
 
+// creates a list with a file
 Vector::Vector(string fileName) {
     int data;
     Head = Tail = nullptr;
@@ -103,6 +109,7 @@ Vector::Vector(string fileName) {
     }
 }
 
+// Pushes a value into the list
 void Vector::push(int value) {
     Node *tempPtr = new Node(value);
 
@@ -119,6 +126,7 @@ void Vector::push(int value) {
     }
 }
 
+// Prints the list to both the console and to the output file
 void Vector::print(ofstream &outfile) {
     Node *temp = Head;
     while (temp != nullptr)
@@ -136,6 +144,7 @@ void Vector::print(ofstream &outfile) {
     cout << endl;
 }
 
+//Push a value to the front of the list
 void Vector::pushFront(int value) {
     Node *temp = new Node(value);
     if(Head == nullptr) {
@@ -148,7 +157,7 @@ void Vector::pushFront(int value) {
     }
 }
 
-
+// Pushes a vector to the front of the list
 void Vector::pushFront(const Vector &other) {
     Node *travel = other.Head;
 
@@ -157,7 +166,7 @@ void Vector::pushFront(const Vector &other) {
         travel = travel->next;
     }
 }
-
+// Pushes a value to the end of the list
 void Vector::pushRear(int value) {
     Node *temp = new Node(value);
     if(Head == nullptr) {
@@ -169,7 +178,7 @@ void Vector::pushRear(int value) {
         Tail = temp;
     }
 }
-
+// Pushes to the rear of the list the other vector 
 void Vector::pushRear(const Vector &other) {
     Node *travel = other.Head;
 
@@ -179,6 +188,7 @@ void Vector::pushRear(const Vector &other) {
     }
 }
 
+// pushes a value in order
 void Vector::inOrderPush(int value) {
     Node *temp = new Node(value);
     if(Head == nullptr) {
@@ -203,6 +213,7 @@ void Vector::inOrderPush(int value) {
     }
 }
 
+//pops the first value in the list
 int Vector::popFront() {
     Node *temp = new Node();
     int val;
@@ -214,6 +225,7 @@ int Vector::popFront() {
     return val;    
 }
 
+// pops the last value in the list
 int Vector::popRear() {
     Node *temp = new Node();
     Node *traverse = new Node();
@@ -238,6 +250,7 @@ int Vector::popRear() {
     return val;
 }
 
+// pops the value at a location you give
 int Vector::popAt(int loc) {
     Node *traverse = new Node();
     Node *temp = new Node();
@@ -251,6 +264,7 @@ int Vector::popAt(int loc) {
     return val;
 }
 
+// finds the location of a value you give
 int Vector::find(int val) {
     Node *traverse = new Node();
     int loc = 0;
@@ -348,6 +362,7 @@ int main() {
     // [56, 61, 97, 66, 83, 25, 26, 11, 53, 49, 62, 18, 10, 18, 14, 3, 4, 23, 18, 24, 26, 27, 54, 14, 12, 45, 65, 98, 56, 97, 15, 84, 98, 9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
 }
 
+//opens files
 void openFiles(ifstream &infile, ofstream &outfile) {
     char inFileName[40];
     char outFileName[40];
@@ -360,6 +375,7 @@ void openFiles(ifstream &infile, ofstream &outfile) {
     outfile.open("test.out"); // open out outfile
 }
 
+//prints heading
 void printHeading(ofstream &outfile) {
     outfile << "2143" << endl;
     outfile << "P01" << endl;
