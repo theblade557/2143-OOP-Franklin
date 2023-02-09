@@ -24,10 +24,13 @@
 
 using namespace std;
 
+void openFiles(ifstream &infile, ofstream &outfile); 
+void printHeading(ofstream &outfile);
+
 struct Node {
-    public:
-        int data;
-        Node* next;
+public:
+    int data;
+    Node *next;
     
     Node() {
         data = 0;
@@ -52,7 +55,7 @@ class Vector {
         Vector(string fileName);// create a vector given a file
 
         void push(int);
-        void print();
+        void print(ofstream &);
         void pushFront(int);            // adds single value at front of this.list
         void pushFront(const Vector &); // adds entire other.list to front of this.list
         void pushRear(int);             // adds single value to rear of this.list
@@ -116,17 +119,20 @@ void Vector::push(int value) {
     }
 }
 
-void Vector::print() {
+void Vector::print(ofstream &outfile) {
     Node *temp = Head;
     while (temp != nullptr)
     {
+    outfile << "[" << temp->data << "]";
     cout << temp->data;
     if (temp->next != nullptr)
     {
+        outfile << " ";
         cout << "->";
     }
     temp = temp->next;
     }
+    outfile << endl;
     cout << endl;
 }
 
@@ -165,7 +171,7 @@ void Vector::pushRear(int value) {
 }
 
 void Vector::pushRear(const Vector &other) {
-    Node *travel = other.Tail;
+    Node *travel = other.Head;
 
     while (travel) {
         this->pushRear(travel->data);
@@ -212,12 +218,23 @@ int Vector::popRear() {
     Node *temp = new Node();
     Node *traverse = new Node();
     int val;
-    while (traverse->next && traverse->next->data < temp->data)
-    {
-        traverse = traverse->next;
-        if (traverse->next == nullptr)
-            val = traverse->data;
+    if (Head == nullptr) {
+        return 0;
+    }   
+    if (Head->next == nullptr) {
+        delete Head;
+        return 0;
     }
+
+    temp = Head;
+    while(temp->next->next) {
+        temp = temp->next;
+    }
+
+    val = temp->data;
+
+    delete temp;
+
     return val;
 }
 
@@ -254,75 +271,97 @@ int Vector::find(int val) {
  */
 
 int main() {
-    // int x = 0;
+    ifstream infile;
+    ofstream outfile;
 
-    // Vector v1;
-    // v1.pushFront(18);
-    // v1.pushFront(20);
-    // v1.pushFront(25);
-    // v1.pushRear(18);
-    // v1.pushRear(20);
-    // v1.pushRear(25);
-    // v1.print();
-    // // [25, 20, 18, 18, 20, 25]
+    openFiles(infile, outfile);
+    printHeading(outfile);
 
-    // int A[] = {11, 25, 33, 47, 51};
-    // Vector v2(A, 5);
-    // v2.print();
-    // // [11, 25, 33, 47, 51]
+    int x = 0;
 
-    // v2.pushFront(9);
-    // // v2.inOrderPush(27);
-    // v2.pushRear(63);
-    // v2.print();
-    // // [9, 11, 25, 33, 47, 51, 63]
+    Vector v1;
+    v1.pushFront(18);
+    v1.pushFront(20);
+    v1.pushFront(25);
+    v1.pushRear(18);
+    v1.pushRear(20);
+    v1.pushRear(25);
+    v1.print(outfile);
+    // [25, 20, 18, 18, 20, 25]
 
-    // v1.pushRear(v2);
-    // v1.print();
-    // // [25, 20, 18, 18, 20, 25, 9, 11, 25, 33, 47, 51, 63]
+    int A[] = {11, 25, 33, 47, 51};
+    Vector v2(A, 5);
+    v2.print(outfile);
+    // [11, 25, 33, 47, 51]
 
-    // x = v1.popFront();
-    // x = v1.popFront();
-    // x = v1.popFront();
-    // v1.print();
-    // // [18, 20, 25, 9, 11, 25, 27, 33, 47, 51, 63]
-    // cout << x << endl;
-    // // 18
+    v2.pushFront(9);
+    // v2.inOrderPush(27);
+    v2.pushRear(63);
+    v2.print(outfile);
+    // [9, 11, 25, 33, 47, 51, 63]
 
-    // x = v1.popRear();
-    // x = v1.popRear();
-    // x = v1.popRear();
-    // v1.print();
-    // // [18, 20, 25, 9, 11, 25, 27, 33]
-    // cout << x << endl;
-    // // 47
+    v1.pushRear(v2);
+    v1.print(outfile);
+    // [25, 20, 18, 18, 20, 25, 9, 11, 25, 33, 47, 51, 63]
 
-    // x = v2.popAt(3);
-    // v2.print();
-    // // [9, 11, 25, 33, 47, 51, 63]
-    // cout << x << endl;
-    // // 27
+    x = v1.popFront();
+    x = v1.popFront();
+    x = v1.popFront();
+    v1.print(outfile);
+    // [18, 20, 25, 9, 11, 25, 27, 33, 47, 51, 63]
+    cout << x << endl;
+    // 18
 
-    // x = v2.find(51);
-    // cout << x << endl;
-    // // 5
+    x = v1.popRear();
+    x = v1.popRear();
+    x = v1.popRear();
+    v1.print(outfile);
+    // [18, 20, 25, 9, 11, 25, 27, 33]
+    cout << x << endl;
+    // 47
 
-    // x = v2.find(99);
-    // cout << x << endl;
-    // // -1
+    x = v2.popAt(3);
+    v2.print(outfile);
+    // [9, 11, 25, 33, 47, 51, 63]
+    cout << x << endl;
+    // 27
 
-    // Vector v3(v1);
-    // v3.print();
-    // // [18, 20, 25, 9, 11, 25, 27, 33]
+    x = v2.find(51);
+    cout << x << endl;
+    // 5
 
-    // v3.pushFront(v2);
-    // v3.print();
-    // //[9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
+    x = v2.find(99);
+    cout << x << endl;
+    // -1
 
-    // Vector v4("input.dat");
-    // v4.pushRear(v3);
-    // v4.print();
-    // // [56, 61, 97, 66, 83, 25, 26, 11, 53, 49, 62, 18, 10, 18, 14, 3, 4, 23, 18, 24, 26, 27, 54, 14, 12, 45, 65, 98, 56, 97, 15, 84, 98, 9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
+    Vector v3(v1);
+    v3.print(outfile);
+    // [18, 20, 25, 9, 11, 25, 27, 33]
+
+    v3.pushFront(v2);
+    v3.print(outfile);
+    //[9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
+
+    Vector v4("input.dat");
+    v4.pushRear(v3);
+    v4.print(outfile);
+    // [56, 61, 97, 66, 83, 25, 26, 11, 53, 49, 62, 18, 10, 18, 14, 3, 4, 23, 18, 24, 26, 27, 54, 14, 12, 45, 65, 98, 56, 97, 15, 84, 98, 9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
 }
 
-void printHeading ()
+void openFiles(ifstream &infile, ofstream &outfile) {
+    char inFileName[40];
+    char outFileName[40];
+
+    cout << "Enter the input file name: ";
+    cin >> inFileName;
+
+    infile.open(inFileName); // open input file
+
+    outfile.open("test.out"); // open out outfile
+}
+
+void printHeading(ofstream &outfile) {
+    outfile << "2143" << endl;
+    outfile << "P01" << endl;
+    outfile << "Collin Franklin" << endl;
+}
