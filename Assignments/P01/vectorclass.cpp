@@ -1,3 +1,23 @@
+/*****************************************************************************
+ *
+ *  Author:           Collin Franklin
+ *  Email:            collin.franklin.2003@gmail.com
+ *  Label:            P01
+ *  Title:            Vector Class Program
+ *  Course:           CMPS 2143
+ *  Semester:         Spring 2023
+ *
+ *  Description:
+ *        Learn how to use and implement a vector class
+ *
+ *  Usage:
+ *        
+ *
+ *  Files:            
+ *        main.cpp
+ * 
+ *****************************************************************************/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -60,17 +80,16 @@ Vector::Vector(const Vector &other) {
     }
 }
 
-    Vector::Vector(int *A, int size) {
+Vector::Vector(int *A, int size) {
         int data;
         Head = Tail = nullptr;
         for (int i = 0; i < size; i++) {
             data = A[i];
             push(data);
         }
-    }
+}
 
-    Vector::Vector(string fileName)
-{
+Vector::Vector(string fileName) {
     int data;
     Head = Tail = nullptr;
     ifstream fin;
@@ -97,8 +116,7 @@ void Vector::push(int value) {
     }
 }
 
-void Vector::print()
-{
+void Vector::print() {
     Node *temp = Head;
     while (temp != nullptr)
     {
@@ -204,7 +222,16 @@ int Vector::popRear() {
 }
 
 int Vector::popAt(int loc) {
-    
+    Node *traverse = new Node();
+    Node *temp = new Node();
+    int val;
+    for (int i = 0; i < loc - 1; i++) {
+        traverse = traverse->next;
+    }
+    temp = traverse->next;
+    val = temp->data;
+    delete temp;
+    return val;
 }
 
 int Vector::find(int val) {
@@ -218,6 +245,13 @@ int Vector::find(int val) {
         loc++;
     }
 }
+
+/**
+ * Main Driver
+ * 
+ * For this program, the main driver was used to test the vector class
+ * 
+ */
 
 int main() {
     // int x = 0;
@@ -290,3 +324,5 @@ int main() {
     // v4.print();
     // // [56, 61, 97, 66, 83, 25, 26, 11, 53, 49, 62, 18, 10, 18, 14, 3, 4, 23, 18, 24, 26, 27, 54, 14, 12, 45, 65, 98, 56, 97, 15, 84, 98, 9, 11, 25, 33, 47, 51, 63, 18, 20, 25, 9, 11, 25, 27, 33]
 }
+
+void printHeading ()
