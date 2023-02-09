@@ -2,8 +2,8 @@
 ### Collin Franklin
 ### Description:
 
---
-
+ Learn how to use and implement a vector class
+ 
 ### Files
 
 |   #   | File     | Description                      |
