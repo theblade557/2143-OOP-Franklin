@@ -391,9 +391,23 @@ public:
             shorter = longer->next;
         }
     }
-    
-    friend MyVector operator==(const MyVector &rhs, const MyVector) {
+
+    // Return true if two normal distributions have the same parameters and the sequences that would be generated are equal.
+    friend MyVector operator==(const MyVector &rhs, const MyVector &) {
         
+    }
+
+    friend MyVector operator = (const MyVector &rhs, const MyVector)
+    {
+        if (this == &rhs)
+        {
+            return *this;
+        }
+
+        this->Head = rhs.head;
+        this->Tail = rhs.tail;
+
+        return *this;
     }
 
     /**
