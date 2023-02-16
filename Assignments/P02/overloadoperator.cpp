@@ -369,7 +369,7 @@ public:
         return fout;
     }
 
-    friend MyVector operator+(const MyVector &rhs) {
+    MyVector operator+(const MyVector &rhs) {
         MyVector V;
         Node *shorter;
         Node *longer;
@@ -391,21 +391,43 @@ public:
             shorter = longer->next;
         }
     }
-
-    // Return true if two normal distributions have the same parameters and the sequences that would be generated are equal.
-    friend MyVector operator==(const MyVector &rhs, const MyVector &) {
-        
+    
+    MyVector operator-(const MyVector &rhs) {
+        MyVector V; 
     }
 
-    friend MyVector operator = (const MyVector &rhs, const MyVector)
+    // Return true if two normal distributions have the same parameters and the sequences that would be generated are equal.
+    bool operator==(const MyVector &rhs) {
+        // if sizes are not equal return false
+        // test each node and make sure they are equal
+    }
+
+
+    
+    MyVector operator=(const MyVector &rhs)
     {
         if (this == &rhs)
         {
             return *this;
         }
+        // copy entire list
+        
+        Node *curr = head;
+        Node *prev = head;
+        while (curr)
+        {
+            prev = curr;
+            curr = curr->next;
+            delete prev;
+        }
 
-        this->Head = rhs.head;
-        this->Tail = rhs.tail;
+        Node *temp = rhs.head;
+
+        while (temp)
+        {
+            pushRear(temp->data);
+            temp = temp->next;
+        }
 
         return *this;
     }
