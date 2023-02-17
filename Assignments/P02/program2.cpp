@@ -68,10 +68,10 @@ public:
     int find(int);                  // find location of item (index) if it exists
 
     friend ostream &operator<<(ostream &, const Vector &);
-    friend fstream &operator<<(ofstream& , const Vector &);
+    friend ofstream &operator<<(ofstream& , const Vector &);
     Vector &operator+(const Vector &);
     Vector operator==(const Vector &);
-    Vector operator= (const Vector &);
+    Vector operator=(const Vector &);
 };
 
 // makes the Vector empty
@@ -316,8 +316,7 @@ int Vector::find(int val)
     }
 }
 
-Vector :: ostream &operator<<(ostream &os, const Vector &rhs)
-    {
+inline ostream &operator<<(ostream &os, const Vector &rhs) {
         Node *temp = rhs.Head; // temp pointer copies head
 
         while (temp)
@@ -333,7 +332,53 @@ Vector :: ostream &operator<<(ostream &os, const Vector &rhs)
         }
         os << endl;
         return os;
-    }
+}
+
+inline ofstream &operator<<(ofstream &fout, const Vector &rhs) {
+        Node *temp = rhs.Head;
+
+        while (temp)
+        {
+            fout << temp->data;
+            if (temp->next)
+            {
+                fout << "->";
+            }
+            temp = temp->next;
+        }
+        fout << endl;
+        return fout;
+}
+
+Vector operator+(const Vector &rhs) {
+        Vector V;
+        Node *shorter;
+        Node *longer;
+        if (rhs.size < this->size)
+        {
+            shorter = rhs.Head;
+            longer = this->Head;
+        }
+        else
+        {
+            longer = rhs.Head;
+            shorter = this->Head;
+        }
+        while (shorter)
+        {
+            cout << shorter->data + longer->data << endl;
+            V.pushFront(shorter->data + longer->data);
+            shorter = shorter->next;
+            longer = longer->next;
+        }
+        while (longer)
+        {
+            cout << longer->data << endl;
+            V.pushFront(longer->data);
+            longer = longer->next;
+        }
+        return V;
+}
 
 /**
  * Main Driver
