@@ -392,14 +392,43 @@ public:
         }
     }
     
-    MyVector operator-(const MyVector &rhs) {
-        MyVector V; 
+    MyVector operator-(const MyVector &other) {
+        MyVector V;
+        Node *lhs = this->head;
+        Node *rhs = other.head;
+        Node *rest;
+
+        while (lhs && rhs)
+        {
+            cout << lhs->data - rhs->data << endl;
+            V.pushFront(lhs->data - rhs->data);
+            lhs = lhs->next;
+            rhs = rhs->next;
+        }
+        if (rhs)
+        {
+            rest = rhs;
+        }
+        else
+        {
+            rest = lhs;
+        }
+        while (rest)
+        {
+            cout << rest->data << endl;
+            V.pushFront(rest->data);
+            rest = rest->next;
+        }
+
+        return V;
     }
 
     // Return true if two normal distributions have the same parameters and the sequences that would be generated are equal.
     bool operator==(const MyVector &rhs) {
         // if sizes are not equal return false
         // test each node and make sure they are equal
+
+
     }
 
 
