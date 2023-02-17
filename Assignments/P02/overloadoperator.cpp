@@ -387,9 +387,16 @@ public:
         {
             cout << shorter->data + longer->data << endl;
             V.pushFront(shorter->data + longer->data);
-            shorter = longer->next;
-            shorter = longer->next;
+            shorter = shorter->next;
+            longer = longer->next;
         }
+        while (longer)
+        {
+            cout << longer->data << endl;
+            V.pushFront(longer->data);
+            longer = longer->next;
+        }
+        return V;
     }
     
     MyVector operator-(const MyVector &other) {
