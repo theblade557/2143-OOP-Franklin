@@ -22,8 +22,10 @@
 
 using namespace std;
 
-// Node for our linked list
-struct Node
+void printHeading(ofstream &outfile);
+
+    // Node for our linked list
+    struct Node
 {
     int data;
 
@@ -35,6 +37,7 @@ struct Node
         next = NULL;
     }
 };
+
 
 class MyVector
 {
@@ -336,6 +339,17 @@ public:
         size++; // add to size of list
     }
 
+    /**
+     * Description:
+     *      overloads outfile << so we can make output easier
+     *
+     * Params:
+     *      ostrean &os
+     *      const MyVector &rhs
+     *
+     * Returns:
+     *      os
+     */
     friend ostream &operator<<(ostream &os, const MyVector &rhs)
     {
         Node *temp = rhs.head; // temp pointer copies head
@@ -355,6 +369,17 @@ public:
         return os;
     }
 
+    /**
+     * Description:
+     *      overloads cout << so we can make printing easier
+     *
+     * Params:
+     *      ofstrean &fout
+     *      const MyVector &rhs
+     *
+     * Returns:
+     *      fout
+     */
     friend ofstream &operator<<(ofstream& fout, const MyVector &rhs) {
         Node *temp = rhs.head;
 
@@ -369,6 +394,17 @@ public:
         return fout;
     }
 
+    /**
+     * Description:
+     *      overloads MyVector addition operator to make
+     *      addition easier
+     *
+     * Params:
+     *      const MyVector &rhs
+     *
+     * Returns:
+     *      Vector V
+     */
     MyVector operator+(const MyVector &rhs) {
         MyVector V;
         Node *shorter;
@@ -398,7 +434,18 @@ public:
         }
         return V;
     }
-    
+
+    /**
+     * Description:
+     *      overloads MyVector subtraction operator to make
+     *      subtraction easier
+     *
+     * Params:
+     *      const MyVector &other
+     *
+     * Returns:
+     *      Vector V
+     */
     MyVector operator-(const MyVector &other) {
         MyVector V;
         Node *lhs = this->head;
@@ -430,16 +477,45 @@ public:
         return V;
     }
 
-    // Return true if two normal distributions have the same parameters and the sequences that would be generated are equal.
+    /**
+     * Description:
+     *      Returns true if two normal distributions have the same 
+     *      parameters and the sequences that would be generated are equal.
+     *
+     * Params:
+     *      const MyVector &rhs
+     *
+     * Returns:
+     *      true or false
+     */
     bool operator==(const MyVector &rhs) {
         // if sizes are not equal return false
         // test each node and make sure they are equal
 
+        Node *temp = head;
+        Node *temp2 = rhs.head;
 
+        while (temp) {
+            if (temp->data == temp2->data) {
+                return true;
+            }
+            else 
+                return false;
+            temp = temp->next;
+            temp2 = temp2->next;
+        }
     }
 
-
-    
+    /**
+     * Description:
+     *      Overloads = operator to make assigning easier
+     *
+     * Params:
+     *      const MyVector &rhs
+     *
+     * Returns:
+     *      Vector V
+     */
     MyVector operator=(const MyVector &rhs)
     {
         if (this == &rhs)
@@ -468,23 +544,23 @@ public:
         return *this;
     }
 
-    /**
-     * @brief Destroy the My Vector object
-     *
-     */
-    ~MyVector()
-    {
-        Node *curr = head;
-        Node *prev = head;
+    // /**
+    //  * @brief Destroy the My Vector object
+    //  *
+    //  */
+    // ~MyVector()
+    // {
+    //     Node *curr = head;
+    //     Node *prev = head;
 
-        while (curr)
-        {
-            prev = curr;
-            curr = curr->next;
-            cout << "deleting: " << prev->data << endl;
-            delete prev;
-        }
-    }
+    //     while (curr)
+    //     {
+    //         prev = curr;
+    //         curr = curr->next;
+    //         cout << "deleting: " << prev->data << endl;
+    //         delete prev;
+    //     }
+    // }
 };
 
 // ofstream MyVector::fout;
@@ -513,17 +589,20 @@ int main()
     fout << v1 << endl;
     // writes out [1,2,3,4,9] to your output file.
 
-    // Vector v3 = v1 + v2;
-    // cout << v3 << endl;
-    // // writes out [11,22,33,4,9] to console.
+    MyVector v3 = v1 + v2;
+    cout << v3 << endl;
+    fout << v3 << endl;
+    // writes out [11,22,33,4,9] to console.
 
-    // v3 = v1 - v2;
-    // cout << v3 << endl;
-    // // writes out [-9,-18,-27,4,9] to console.
+    v3 = v1 - v2;
+    cout << v3 << endl;
+    fout << v3 << endl;
+    // writes out [-9,-18,-27,4,9] to console.
 
-    // v3 = v2 - v1;
-    // cout << v3 << endl;
-    // // writes out [9,18,27,4,9] to console.
+    v3 = v2 - v1;
+    cout << v3 << endl;
+    fout << v3 << endl;
+    // writes out [9,18,27,4,9] to console.
 
     // v3 = v2 * v1;
     // cout << v3 << endl;
@@ -541,10 +620,19 @@ int main()
     // cout << v3 << endl;
     // // writes out [10,10,10,4,9] to console.
 
-    // cout << (v2 == v1) << endl;
-    // // writes 0 to console (false) .
+    cout << (v2 == v1) << endl;
+    fout << (v2 == v1) << endl;
+    // writes 0 to console (false) .
 
-    // MyVector v4 = v1;
-    // cout << (v4 == v1) << endl;
-    // // writes 1 to console (true) .
+    MyVector v4 = v1;
+    cout << (v4 == v1) << endl;
+    fout << (v4 == v1) << endl;
+    // writes 1 to console (true) .
+}
+
+void printHeading(ofstream &outfile)
+{
+    outfile << "2143" << endl;
+    outfile << "P01" << endl;
+    outfile << "Collin Franklin" << endl;
 }
