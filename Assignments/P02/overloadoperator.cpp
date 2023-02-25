@@ -24,8 +24,8 @@ using namespace std;
 
 void printHeading(ofstream &outfile);
 
-    // Node for our linked list
-    struct Node
+// Node for our linked list
+struct Node
 {
     int data;
 
@@ -37,7 +37,6 @@ void printHeading(ofstream &outfile);
         next = NULL;
     }
 };
-
 
 class MyVector
 {
@@ -380,12 +379,15 @@ public:
      * Returns:
      *      fout
      */
-    friend ofstream &operator<<(ofstream& fout, const MyVector &rhs) {
+    friend ofstream &operator<<(ofstream &fout, const MyVector &rhs)
+    {
         Node *temp = rhs.head;
 
-        while (temp) {
+        while (temp)
+        {
             fout << temp->data;
-            if(temp->next) {
+            if (temp->next)
+            {
                 fout << "->";
             }
             temp = temp->next;
@@ -405,7 +407,8 @@ public:
      * Returns:
      *      Vector V
      */
-    MyVector operator+(const MyVector &rhs) {
+    MyVector operator+(const MyVector &rhs)
+    {
         MyVector V;
         Node *shorter;
         Node *longer;
@@ -446,7 +449,8 @@ public:
      * Returns:
      *      Vector V
      */
-    MyVector operator-(const MyVector &other) {
+    MyVector operator-(const MyVector &other)
+    {
         MyVector V;
         Node *lhs = this->head;
         Node *rhs = other.head;
@@ -479,7 +483,7 @@ public:
 
     /**
      * Description:
-     *      Returns true if two normal distributions have the same 
+     *      Returns true if two normal distributions have the same
      *      parameters and the sequences that would be generated are equal.
      *
      * Params:
@@ -488,18 +492,21 @@ public:
      * Returns:
      *      true or false
      */
-    bool operator==(const MyVector &rhs) {
+    bool operator==(const MyVector &rhs)
+    {
         // if sizes are not equal return false
         // test each node and make sure they are equal
 
         Node *temp = head;
         Node *temp2 = rhs.head;
 
-        while (temp) {
-            if (temp->data == temp2->data) {
+        while (temp)
+        {
+            if (temp->data == temp2->data)
+            {
                 return true;
             }
-            else 
+            else
                 return false;
             temp = temp->next;
             temp2 = temp2->next;
@@ -523,7 +530,7 @@ public:
             return *this;
         }
         // copy entire list
-        
+
         Node *curr = head;
         Node *prev = head;
         while (curr)
