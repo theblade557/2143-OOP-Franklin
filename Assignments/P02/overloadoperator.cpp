@@ -24,8 +24,8 @@ using namespace std;
 
 void printHeading(ofstream &outfile);
 
-    // Node for our linked list
-    struct Node
+// Node for our linked list
+struct Node
 {
     int data;
 
@@ -37,7 +37,6 @@ void printHeading(ofstream &outfile);
         next = NULL;
     }
 };
-
 
 class MyVector
 {
@@ -380,12 +379,15 @@ public:
      * Returns:
      *      fout
      */
-    friend ofstream &operator<<(ofstream& fout, const MyVector &rhs) {
+    friend ofstream &operator<<(ofstream &fout, const MyVector &rhs)
+    {
         Node *temp = rhs.head;
 
-        while (temp) {
+        while (temp)
+        {
             fout << temp->data;
-            if(temp->next) {
+            if (temp->next)
+            {
                 fout << "->";
             }
             temp = temp->next;
@@ -405,7 +407,8 @@ public:
      * Returns:
      *      Vector V
      */
-    MyVector operator+(const MyVector &rhs) {
+    MyVector operator+(const MyVector &rhs)
+    {
         MyVector V;
         Node *shorter;
         Node *longer;
@@ -421,14 +424,14 @@ public:
         }
         while (shorter)
         {
-            cout << shorter->data + longer->data << endl;
+            // cout << shorter->data + longer->data << endl;
             V.pushFront(shorter->data + longer->data);
             shorter = shorter->next;
             longer = longer->next;
         }
         while (longer)
         {
-            cout << longer->data << endl;
+            // cout << longer->data << endl;
             V.pushFront(longer->data);
             longer = longer->next;
         }
@@ -446,13 +449,14 @@ public:
      * Returns:
      *      Vector V
      */
-    MyVector operator-(const MyVector &other) {
+    MyVector operator-(const MyVector &other)
+    {
         MyVector V;
         Node *lhs = this->head;
         Node *rhs = other.head;
         Node *rest;
 
-        while (lhs && rhs)
+        while (this && rhs)
         {
             cout << lhs->data - rhs->data << endl;
             V.pushFront(lhs->data - rhs->data);
@@ -479,7 +483,7 @@ public:
 
     /**
      * Description:
-     *      Returns true if two normal distributions have the same 
+     *      Returns true if two normal distributions have the same
      *      parameters and the sequences that would be generated are equal.
      *
      * Params:
@@ -488,18 +492,21 @@ public:
      * Returns:
      *      true or false
      */
-    bool operator==(const MyVector &rhs) {
+    bool operator==(const MyVector &rhs)
+    {
         // if sizes are not equal return false
         // test each node and make sure they are equal
 
         Node *temp = head;
         Node *temp2 = rhs.head;
 
-        while (temp) {
-            if (temp->data == temp2->data) {
+        while (temp)
+        {
+            if (temp->data == temp2->data)
+            {
                 return true;
             }
-            else 
+            else
                 return false;
             temp = temp->next;
             temp2 = temp2->next;
@@ -523,7 +530,7 @@ public:
             return *this;
         }
         // copy entire list
-        
+
         Node *curr = head;
         Node *prev = head;
         while (curr)
@@ -576,6 +583,7 @@ int main()
 
     ofstream fout;
     fout.open("output.txt");
+    printHeading(fout);
 
     // cout << v1[2] << endl;
     // // writes out 3
@@ -630,9 +638,10 @@ int main()
     // writes 1 to console (true) .
 }
 
-void printHeading(ofstream &outfile)
+void printHeading(ofstream &fout)
 {
-    outfile << "2143" << endl;
-    outfile << "P01" << endl;
-    outfile << "Collin Franklin" << endl;
+    fout << "2143" << endl;
+    fout << "P01" << endl;
+    fout << "Collin Franklin" << endl;
+    fout << endl;
 }
