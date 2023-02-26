@@ -424,14 +424,14 @@ public:
         }
         while (shorter)
         {
-            cout << shorter->data + longer->data << endl;
+            //cout << shorter->data + longer->data << endl;
             V.pushFront(shorter->data + longer->data);
             shorter = shorter->next;
             longer = longer->next;
         }
         while (longer)
         {
-            cout << longer->data << endl;
+            //cout << longer->data << endl;
             V.pushFront(longer->data);
             longer = longer->next;
         }
@@ -456,7 +456,7 @@ public:
         Node *rhs = other.head;
         Node *rest;
 
-        while (lhs && rhs)
+        while (this && rhs)
         {
             cout << lhs->data - rhs->data << endl;
             V.pushFront(lhs->data - rhs->data);
@@ -583,6 +583,7 @@ int main()
 
     ofstream fout;
     fout.open("output.txt");
+    printHeading(fout);
 
     // cout << v1[2] << endl;
     // // writes out 3
@@ -637,9 +638,9 @@ int main()
     // writes 1 to console (true) .
 }
 
-void printHeading(ofstream &outfile)
+void printHeading(ofstream &fout)
 {
-    outfile << "2143" << endl;
-    outfile << "P01" << endl;
-    outfile << "Collin Franklin" << endl;
+    fout << "2143" << endl;
+    fout << "P01" << endl;
+    fout << "Collin Franklin" << endl << endl;
 }
