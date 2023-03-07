@@ -2,3 +2,10 @@ Collin Franklin
 March 2nd, 2023
 Spring 2143
 
+digraph linkedlist{
+rankdir=LR
+	0 [color="black", shape="box"]
+	1 [color="black", fillColor="blue", shape="box"]
+	2 [color="black", fillColor="purple", shape="box"]
+	3 [color="black", fillColor="red", shape="box"]
+}

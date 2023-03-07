@@ -1,33 +1,24 @@
 /**
- * This code defines a Graph class with a constructor that takes
- * the number of vertices V and initializes an empty adjacency
- * list for each vertex. The addEdge function adds an undirected
- * edge between two vertices. The printGraph function prints out
- * the adjacency list for each vertex, showing the nodes that are
- * connected to it. The main function creates a new Graph object
- * with 5 vertices, adds several edges between them, and then prints
- * out the graph.
- */
+https://replit.com/@rugbyprof/graphvizsp23#main.cpp
+*/
 
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <vector>
-#include <fstream>
 
 using namespace std;
 
 void printHeading(ofstream &fout);
 
-class Edge {
+class Attribute
+{
 protected:
     map<string, string> att; // attributes
 
 public:
-    Edge()
-    {
-        att["color"] = "black";    // default color
-        att["arrow_type"] = "vee"; // default arrow shape
-    }
+    Attribute() {}
+
     /**
      * Very basic print method to print out some graphviz style
      * code defining an edge.
@@ -39,185 +30,185 @@ public:
     /**
      * Update an edge attribute. Assumes key is valid.
      */
-    void updateAttribute(string key, string val) { att[key] = val; }
+    void addAttribute(string key, string val) { att[key] = val; }
 
     /**
      * Takes a map of attributes. Loops over them and saves them
      * locally.
      */
-    void updateAttribute(map<string, string> atts)
+    void addAttributes(map<string, string> atts)
     {
-        for (auto const &x : att)
+        for (auto const &x : atts)
         {
-            std::cout << x.first         // string (key)
-                      << ':' << x.second // string's value
-                      << std::endl;
+            cout << x.first << "=" << x.second << endl;
             att[x.first] = x.second;
         }
     }
     /**
      * Use our basic print to dump this class out.
      */
-    friend ostream &operator<<(ostream &os, Edge &e) { return os << e.print(); }
-};
-
-struct Node
-{
-    string color;
-    string shape;
-    Node()
+    friend ostream &operator<<(ostream &os, Attribute &e)
     {
-        color = "black";
-        shape = "box";
-    }
-};
-
-class Graph
-{
-protected:
-    int V;                   // number of vertices
-    bool directed;           // id graph directed or undirected
-    vector<vector<int>> adj; // adjacency list
-
-    void checkResize(int v)
-    {
-        if (v >= this->V - 1)
+        os << "[";
+        int i = 0;
+        for (auto const &x : e.att)
         {
-            adj.resize(v + 1);
-            this->V = v + 1;
+            os << x.first << "="
+               << "\"" << x.second << "\"";
+            if (i < e.att.size() - 1)
+            {
+                os << ", ";
+            }
+            i++;
         }
+        os << "]";
+        return os;
     }
+};
+
+class Edge : public Attribute
+{
+    int eid;
 
 public:
-    // Default constructor
-    // Params:
-    //    bool directed : is graph directed or not
-    Graph(bool directed = true)
+    Edge()
     {
-        this->V = 0;
-        this->directed = directed;
+        att["color"] = "black";    // default color
+        att["arrow_type"] = "vee"; // default arrow shape
     }
 
-    // Overloaded constructor
-    // Params:
-    //   int V : number of nodes to be in graph
-    //   bool directed : is graph directed or not
-    Graph(int V, bool directed = true)
+    Edge(string color, string arrow)
     {
-        this->V = V;
-        adj.resize(V);
-        this->directed = directed;
-    }
-
-    virtual void addNode(int v, int w) {
-        
-    }
-
-    virtual void addEdge(int v, int w)
-    {
-        checkResize(v);
-        checkResize(w);
-
-        // add connection from v to w
-        adj[v].push_back(w);
-
-        // if undirected, we add an edge
-        // gong from w to v as well.
-        if (!directed)
-        {
-            adj[w].push_back(v);
-        }
-    }
-
-    virtual void printGraph()
-    {
-        for (int v = 0; v < V; v++)
-        {
-            cout << "Node " << v << " is connected to: ";
-            for (auto i : adj[v])
-            {
-                cout << i << " "
-                     << " ";
-            }
-
-            cout << endl;
-        }
+        att["color"] = color;      // default color
+        att["arrow_type"] = arrow; // default arrow shape
     }
 };
 
-class GraphViz : public Graph
+class Node : public Attribute
 {
-    map<string, Edge *> edges; // container of edge types
-    // Creates a string id se we can look up edges
-    // in our graph class.
+    int nid;
+
+public:
+    Node()
+    {
+        att["color"] = "black"; // default color
+        att["shape"] = "box";   // default arrow shape
+    }
+};
+
+class GraphViz
+{
+    int edgeId;
+    int nodeId;
+    vector<Edge> Edges;
+    vector<Node> Nodes;
+
     string makeEid(int v, int w) { return to_string(v) + "-" + to_string(w); }
 
 public:
-    GraphViz() {}
-    GraphViz(int V) : Graph(V) {}
-    void addEdge(int v, int w)
+
+    //GraphViz constructor
+    GraphViz()
     {
-        checkResize(v);
-        checkResize(w);
-
-        // add connection from v to w
-        adj[v].push_back(w);
-
-        // if undirected, we add an edge
-        // gong from w to v as well.
-        if (!directed)
-        {
-            adj[w].push_back(v);
-        }
-
-        // add an edge type for graphviz
-        edges[makeEid(v, w)] = new Edge();
+        edgeId = 0;
+        nodeId = 0;
     }
-    void printGraph()
-    {
-        for (int v = 0; v < V; v++)
-        {
-            cout << "Node " << v << " is connected to: ";
-            for (auto i : adj[v])
-            {
-                cout << i << " " << *edges[makeEid(v, i)] << " ";
-            }
 
-            cout << endl;
-        }
-    }
-    void editEdge(int from, int to, string key, string val)
+    //adds node to the back
+    int addNode()
     {
-        editEdge(makeEid(from, to), key, val);
+        Nodes.push_back(Node());
+        return Nodes.size() - 1;
     }
-    void editEdge(string eid, string key, string val)
+    
+    //adds an edge to the back
+    void addEdge(int start, int end) { Edges.push_back(Edge()); }
+
+    // output your graphviz stuff
+    void printGraph(string graphName)
     {
-        edges[eid]->updateAttribute(key, val);
+        cout << "Digraph" << graphName << "{";
+        // loop over nodes and print them
+        // loop over edges and print them
+        cout << "}\n";
     }
 };
 
 int main()
 {
+    // add and save nodes and edges
+
     ofstream fout;
-    fout.open ("test.out");
+    fout.open("test.out");
     printHeading(fout);
 
-    GraphViz g;
-    g.addEdge(0, 1);
-    g.addEdge(0, 4);
-    g.addEdge(1, 2);
-    g.addEdge(1, 3);
-    g.addEdge(1, 4);
-    g.addEdge(2, 3);
-    g.addEdge(3, 4);
-    g.addEdge(9, 10);
-    g.addEdge(4, 9);
-    g.editEdge(4, 9, "color", "red");
-    g.editEdge(4, 9, "arrow_type", "block");
-    g.printGraph();
+    int start;
+    int end;
+
+    Edge e;
+    map<string, string> stuff;
+
+    stuff["fillcolor"] = "red";
+    stuff["nodecolor"] = "purple";
+    stuff["edgestyle"] = "dashed";
+
+    vector<Node> Nodes;
+
+    // index = 0-3
+    Nodes.push_back(Node());
+    Nodes.push_back(Node());
+    Nodes.push_back(Node());
+    Nodes.push_back(Node());
+
+    // adding attributes
+    Nodes[1].addAttribute("fillColor", "blue");
+    Nodes[2].addAttribute("fillColor", "purple");
+    Nodes[3].addAttribute("fillColor", "red");
+
+    //printing out graphviz stuff
+    cout << "digraph"
+         << " linkedlist"
+         << "{\n";
+
+    fout << "digraph"
+         << " linkedlist"
+         << "{\n";
+
+    cout << "rankdir=LR" << endl;
+    fout << "rankdir=LR" << endl;
+
+    for (int i = 0; i < Nodes.size(); i++)
+    {
+        cout << "\t" << i << " " << Nodes[i] << endl;
+        fout << "\t" << i << " " << Nodes[i] << endl;
+    }
+    cout << "}\n";
+    fout << "}\n";
+
+    //   cout<<"=================="<<endl;
+    //   cout<<e<<endl;
+    // cout<<"=================="<<endl;
+
+    //   GraphViz g;
+
+    //   start = g.addNode();
+    //   g.updateNode(id,key,value);
+
+    // g.addEdge(0, 1);
+    // g.addEdge(0, 4);
+    // g.addEdge(1, 2);
+    // g.addEdge(1, 3);
+    // g.addEdge(1, 4);
+    // g.addEdge(2, 3);
+    // g.addEdge(3, 4);
+    // g.addEdge(9, 10);
+    // g.addEdge(4, 9);
+
+    // g.printGraph();
     return 0;
 }
 
+//prints heading
 void printHeading(ofstream &fout)
 {
     fout << "Collin Franklin" << endl;
