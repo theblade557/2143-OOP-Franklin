@@ -641,7 +641,7 @@ int main()
 void printHeading(ofstream &fout)
 {
     fout << "2143" << endl;
-    fout << "P01" << endl;
+    fout << "P02" << endl;
     fout << "Collin Franklin" << endl;
     fout << endl;
 }
