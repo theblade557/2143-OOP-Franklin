@@ -63,7 +63,7 @@ public:
             }
             i++;
         }
-        os << "]";
+        os << "];";
 
         return os;
     }
@@ -86,6 +86,9 @@ public:
         }
 
         fout << "]";
+        fout << endl;
+        fout << "}";
+
         return fout;
     }
 
@@ -132,32 +135,11 @@ public:
             }
             i++;
         }
-        os << "]";
+        os << "];";
 
         return os;
     }
 
-    // friend fstream &operator<<(ostream &fout, Edge &e)
-    // {
-    //     fout << e.start << "->" << e.end << " ";
-    //     fout << "[";
-
-    //     int i = 0;
-    //     for (auto const &x : e.att)
-    //     {
-    //         fout << x.first << "="
-    //            << "\"" << x.second << "\"";
-
-    //         if (i < e.att.size() - 1)
-    //         {
-    //             fout << ", ";
-    //         }
-    //         i++;
-    //     }
-    //     fout << "]";
-
-    //     return fout;
-    // }
 };
 
 class Node : public Attribute
@@ -316,9 +298,13 @@ int main()
     G.addEdge(2, 3, Arrow);
     G.addEdge(3, 4, Arrow);
 
-    //printing G
-    cout << G << endl;
-    fout << G << endl;
+    //printing Linked List
+    cout << "digraph LL {" << endl;
+    fout << "digraph LL {" << endl;
+    cout << G;
+    fout << G;
+    cout << "}" << endl << endl;
+    fout << "}" << endl << endl;
 
     // making the doubly linked list
     // and sending in default colors and shapes
@@ -337,9 +323,13 @@ int main()
     D.addEdge(3, 4, Arrow);
     D.addEdge(4, 3, Arrow);
 
-    //printing D
-    cout << D << endl;
-    fout << D << endl;
+    //printing Doubly Linked List
+    cout << "digraph DLL {" << endl;
+    fout << "digraph DLL {" << endl;
+    cout << D;
+    fout << D;
+    cout << "}" << endl << endl;
+    fout << "}" << endl << endl;
 
     nodeId = B.addNode(Box);
     nodeId = B.addNode(Box);
@@ -356,10 +346,13 @@ int main()
     B.addEdge(2, 5, Arrow);
     B.addEdge(2, 6, Arrow);
 
-    //printing B
-    cout << B << endl;
-    fout << B << endl;
-
+    //printing Binary Search Tree
+    cout << "digraph BST {" << endl;
+    fout << "digraph BST {" << endl;
+    cout << B;
+    fout << B;
+    cout << "}" << endl << endl;
+    fout << "}" << endl << endl;
 }
 
 void printHeading(ofstream &fout) {
