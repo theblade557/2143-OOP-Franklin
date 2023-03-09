@@ -40,7 +40,7 @@ public:
     {
         for (auto const &x : atts)
         {
-            cout << x.first << "=" << x.second << endl;
+            //cout << x.first << "=" << x.second << endl;
             att[x.first] = x.second;
         }
     }
@@ -90,20 +90,7 @@ public:
         fout << "]";
         return fout;
     }
-    // friend fstream &operator<<(fstream &os, Attribute &e) {
-    //   os << "[";
-    //   int i = 0;
-    //   for (auto const &x : e.att) {
-    //     os << x.first << "="
-    //        << "\"" << x.second << "\"";
-    //     if (i < e.att.size() - 1) {
-    //       os << ", ";
-    //     }
-    //     i++;
-    //   }
-    //   os << "]";
-    //   return os;
-    // }
+
 };
 
 class Edge : public Attribute
@@ -286,6 +273,7 @@ int main()
     Box["opacity"] = "0.8";
     A.addAttributes(Box);
 
+
     Arrow["color"] = "black";
     Arrow["arrow_type"] = "vee";
     A.addAttributes(Arrow);
@@ -305,6 +293,7 @@ int main()
     G.addEdge(2, 3, Arrow);
     G.addEdge(3, 4, Arrow);
 
+    //printing G
     cout << G << endl;
 
     // making the doubly linked list
@@ -324,6 +313,7 @@ int main()
     D.addEdge(3, 4, Arrow);
     D.addEdge(4, 3, Arrow);
 
+    //printing D
     cout << D << endl;
 
     nodeId = B.addNode(Box);
@@ -341,68 +331,10 @@ int main()
     B.addEdge(2, 5, Arrow);
     B.addEdge(2, 6, Arrow);
 
+    //printing B
     cout << B << endl;
 
-    // ofstream fout;
-    // fout.open("sonofabitch.com");
-    // fout<<A<<endl;
 }
-// add and save nodes and edges
-
-//   ofstream fout;
-//   fout.open("test.out");
-//   printHeading(fout);
-
-//   int start;
-//   int end;
-
-//   Edge e;
-//   map<string, string> stuff;
-
-//   stuff["fillcolor"] = "red";
-//   stuff["nodecolor"] = "purple";
-//   stuff["edgestyle"] = "dashed";
-
-//   vector<Node> Nodes;
-
-//   // index = 0-3
-//   Nodes.push_back(Node());
-//   Nodes.push_back(Node());
-//   Nodes.push_back(Node());
-//   Nodes.push_back(Node());
-
-//   Nodes[2].addAttribute("fillColor","purple");
-//   Nodes[3].addAttribute("fillColor", "red");
-
-//   cout << "digraph" << " someGraph" << "{\n";
-
-//   for(int i=0;i<Nodes.size();i++){
-//     cout<<"\t"<<i<<" "<<Nodes[i]<<endl;
-//   }
-//   cout << "}\n";
-
-//   //   cout<<"=================="<<endl;
-//   //   cout<<e<<endl;
-//   // cout<<"=================="<<endl;
-
-//   //   GraphViz g;
-
-//   //   start = g.addNode();
-//   //   g.updateNode(id,key,value);
-
-//   // g.addEdge(0, 1);
-//   // g.addEdge(0, 4);
-//   // g.addEdge(1, 2);
-//   // g.addEdge(1, 3);
-//   // g.addEdge(1, 4);
-//   // g.addEdge(2, 3);
-//   // g.addEdge(3, 4);
-//   // g.addEdge(9, 10);
-//   // g.addEdge(4, 9);
-
-//   // g.printGraph();
-//   return 0;
-// }
 
 // void printHeading(ofstream &fout) {
 //   fout << "Collin Franklin" << endl;
