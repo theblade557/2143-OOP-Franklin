@@ -1,6 +1,4 @@
-/**
-https://replit.com/@rugbyprof/graphvizsp23#main.cpp
-*/
+
 
 #include <fstream>
 #include <iostream>
@@ -138,6 +136,28 @@ public:
 
         return os;
     }
+
+    // friend fstream &operator<<(ostream &fout, Edge &e)
+    // {
+    //     fout << e.start << "->" << e.end << " ";
+    //     fout << "[";
+
+    //     int i = 0;
+    //     for (auto const &x : e.att)
+    //     {
+    //         fout << x.first << "="
+    //            << "\"" << x.second << "\"";
+
+    //         if (i < e.att.size() - 1)
+    //         {
+    //             fout << ", ";
+    //         }
+    //         i++;
+    //     }
+    //     fout << "]";
+
+    //     return fout;
+    // }
 };
 
 class Node : public Attribute
@@ -257,6 +277,9 @@ public:
 
 int main()
 {
+    ofstream fout;
+    fout.open("test.out");
+    printHeading(fout);
     // create graphviz instances with specific shapes
     GraphViz G("LinkedList", "LL");
     GraphViz D("DoublyLinkedList", "DLL");
@@ -295,6 +318,7 @@ int main()
 
     //printing G
     cout << G << endl;
+    fout << G << endl;
 
     // making the doubly linked list
     // and sending in default colors and shapes
@@ -315,6 +339,7 @@ int main()
 
     //printing D
     cout << D << endl;
+    fout << D << endl;
 
     nodeId = B.addNode(Box);
     nodeId = B.addNode(Box);
@@ -333,12 +358,13 @@ int main()
 
     //printing B
     cout << B << endl;
+    fout << B << endl;
 
 }
 
-// void printHeading(ofstream &fout) {
-//   fout << "Collin Franklin" << endl;
-//   fout << "March 2nd, 2023" << endl;
-//   fout << "Spring 2143" << endl;
-//   fout << endl;
-// }
+void printHeading(ofstream &fout) {
+  fout << "Collin Franklin" << endl;
+  fout << "March 9th, 2023" << endl;
+  fout << "Spring 2143" << endl;
+  fout << endl;
+}
